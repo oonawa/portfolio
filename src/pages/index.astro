@@ -11,17 +11,18 @@ import ThridLineContainer from "../components/Routes/Top/Menu/ThridLine/Containe
 import IconContainer from "../components/Routes/Top/Menu/ThridLine/Icon/Container";
 import { getTopMenuImages } from "../lib/cms-client";
 import type { SiteOg } from "../components/Layouts/Meta";
+import { CONSTS } from "../../consts";
 
 const { blog, about, experiences, socials } = await getTopMenuImages();
 
 const og: SiteOg = {
-	description: "Personal website of naary",
+	description: CONSTS.SITE_DESCRIPTION,
 	type: "website",
 };
 ---
 
 <Meta og={og}>
-	<Header isTopPage={true} title="NAARY.ME" />
+	<Header isTopPage={true} title={CONSTS.SITE_NAME} />
 	<main class="secondIn">
 		<GridContainer>
 			<FirstLineContainer>

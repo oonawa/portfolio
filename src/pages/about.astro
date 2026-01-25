@@ -7,14 +7,15 @@ import { getAboutContent } from "../lib/cms-client";
 import { getDate } from "../lib/day-js";
 import { parseHtml } from "../lib/html-parser";
 import type { SiteOg } from "../components/Layouts/Meta";
+import { CONSTS } from "../../consts";
 
 const about = await getAboutContent();
 const age = about.birth_year ? getDate().year() - about.birth_year : null;
 
 const og: SiteOg = {
-	description: "about NAARY.ME",
+	description: `about ${CONSTS.SITE_NAME}`,
 	type: "article",
-	url: "about"
+	url: "about",
 };
 ---
 

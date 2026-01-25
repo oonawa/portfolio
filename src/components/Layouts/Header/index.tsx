@@ -1,5 +1,6 @@
 import HeaderText from "./Text";
 import HeaderTextContainer from "./Text/Container";
+import { CONSTS } from "../../../../consts";
 
 type Props = {
 	isTopPage?: boolean;
@@ -20,7 +21,7 @@ export default function Header({ isTopPage = false, title }: Props) {
 					) : (
 						<HeaderTextContainer>
 							<a href="/">
-								<HeaderText>NAARY.ME /</HeaderText>
+								<HeaderText>{CONSTS.SITE_NAME} /</HeaderText>
 							</a>
 						</HeaderTextContainer>
 					)}

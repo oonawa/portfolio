@@ -2,6 +2,7 @@ import type React from "react";
 import "../../styles/font.css";
 import "../../styles/animation.css";
 import "../../styles/global.css";
+import { CONSTS } from "../../../consts";
 
 export type SiteOg = {
 	description: string;
@@ -15,8 +16,6 @@ type Props = {
 	og: SiteOg;
 	children: React.ReactNode;
 };
-
-const SITE_NAME = "NAARY.ME";
 
 export default function Meta({ title, og, children }: Props) {
 	return (
@@ -46,21 +45,30 @@ export default function Meta({ title, og, children }: Props) {
 				<meta name="description" content={og.description} />
 				<meta
 					property="og:url"
-					content={og.url ? `https://naary.me/${og.url}` : "https://naary.me"}
+					content={
+						og.url
+							? `https://${CONSTS.SITE_DOMAIN}/${og.url}`
+							: CONSTS.SITE_DOMAIN
+					}
 				/>
 				<meta property="og:type" content={og.type} />
 				<meta property="og:description" content={og.description} />
-				<meta property="og:title" content={title ? `${title} | ${SITE_NAME}` : SITE_NAME} />
 				<meta
-					property="og:image"
-					content={og.image ? og.image : "/og.png"}
+					property="og:title"
+					content={title ? `${title} | ${CONSTS.SITE_NAME}` : CONSTS.SITE_NAME}
 				/>
-				<meta property="og:site_name" content={SITE_NAME} />
+				<meta property="og:image" content={og.image ? og.image : "/og.png"} />
+				<meta property="og:site_name" content={CONSTS.SITE_NAME} />
 				<meta name="twitter:card" content="summary" />
-				<meta name="twitter:title" content={title ? `${title} | ${SITE_NAME}` : SITE_NAME} />
+				<meta
+					name="twitter:title"
+					content={title ? `${title} | ${CONSTS.SITE_NAME}` : CONSTS.SITE_NAME}
+				/>
 				<meta name="twitter:description" content={og.description} />
 				<meta name="twitter:image" content="/og.png" />
-				<title>{title ? `${title} | ${SITE_NAME}` : SITE_NAME}</title>
+				<title>
+					{title ? `${title} | ${CONSTS.SITE_NAME}` : CONSTS.SITE_NAME}
+				</title>
 			</head>
 			<body className="bg-background-default m-0 text-text-default font-sans">
 				{children}

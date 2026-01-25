@@ -1,6 +1,6 @@
 {
-  "name": "NAARY.ME | Personal website of naary",
-  "short_name": "NAARY.ME",
+  "name": "PORTFOLIO | Personal website of oonawa",
+  "short_name": "PORTFOLIO",
   "icons": [
     { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
 

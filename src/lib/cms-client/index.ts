@@ -6,17 +6,20 @@ import type {
 	MicroCMSContentId,
 } from "microcms-js-sdk";
 
-if (!process.env.API_SERVICE_DOMAIN) {
+const serviceDomain = import.meta.env.API_SERVICE_DOMAIN;
+const apiKey = import.meta.env.API_KEY;
+
+if (!serviceDomain) {
 	throw new Error("microCMSのサービスドメインが設定されていません。");
 }
 
-if (!process.env.API_KEY) {
+if (!serviceDomain) {
 	throw new Error("microCMSのAPIキーが設定されていません。");
 }
 
 export const client = createClient({
-	serviceDomain: process.env.API_SERVICE_DOMAIN,
-	apiKey: process.env.API_KEY,
+	serviceDomain,
+	apiKey,
 });
 
 export type Blog = {

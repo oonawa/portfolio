@@ -1,21 +1,25 @@
 ---
+export const prerender = true;
+
 import Meta from "../components/Layouts/Meta";
 import Header from "../components/Layouts/Header";
 import Footer from "../components/Layouts/Footer";
-import ExperienceContainer from "../components/Routes/Experiences/Container";
+import ExperienceContainer from "../components/Routes/Experiences/Container/index.astro";
 import type { SiteOg } from "../components/Layouts/Meta";
 
 const og: SiteOg = {
 	description: "my history",
 	type: "article",
-	url: "experiences"
+	url: "experiences",
 };
 ---
 
 <Meta title={"Experiences"} og={og}>
 	<Header title="Experiences" />
 	<main class="secondIn">
-		<ExperienceContainer client:only />
+		<ExperienceContainer server:defer>
+			<span slot="fallback" class="h-[100dvh]"></span>
+		</ExperienceContainer>
+		<Footer />
 	</main>
-	<Footer />
 </Meta>

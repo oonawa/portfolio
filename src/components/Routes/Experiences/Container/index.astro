@@ -1,0 +1,33 @@
+---
+import FeedList from "../FeedList";
+import FeedItem from "../FeedItem";
+import FeedYear from "../FeedYear";
+import FeedMonth from "../FeedMonth";
+import { getAboutContent, getTopMenuImages } from "../../../../lib/cms-client";
+import { getRssTimeline, groupItems } from "../../../../lib/rss-reader";
+
+const about = await getAboutContent();
+const feedItemList = await getRssTimeline(about.rss);
+const { socials } = await getTopMenuImages();
+
+// 年月単位でネストされたデータ構造に変換
+const rss = groupItems(feedItemList);
+---
+
+<div class="secondIn opacity-0">
+	{
+		rss.map((groupedByYear) => (
+			<FeedYear year={groupedByYear.year}>
+				{groupedByYear.months.map((groupedByMonth) => (
+					<FeedMonth month={groupedByMonth.month}>
+						<FeedList>
+							{groupedByMonth.items.map((item) => (
+								<FeedItem feed={item} favicon={socials} />
+							))}
+						</FeedList>
+					</FeedMonth>
+				))}
+			</FeedYear>
+		))
+	}
+</div>

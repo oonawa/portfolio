@@ -15,7 +15,7 @@ export default function Header({ isTopPage = false, title }: Props) {
 					{isTopPage ? (
 						<HeaderTextContainer>
 							<HeaderText>
-								Software engineer during reboot, and Japanese company employee
+								Japanese frontend engineer, amateur designer. Mostly other stuff.
 							</HeaderText>
 						</HeaderTextContainer>
 					) : (

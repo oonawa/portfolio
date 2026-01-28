@@ -13,8 +13,8 @@ export default function IconContainer({ imageUrl, href, alt }: Props) {
 				rel="noopener nofollow noreferrer"
 				className="w-[48px] sm:w-[84px] aspect-square"
 			>
-				<span className="flex items-center aspect-square rounded-xl justify-center bg-text-darken-1">
-					<img className="w-[80%] h-[80%]" src={imageUrl} alt={alt} />
+				<span className="flex items-center aspect-square rounded-xl justify-center">
+					<img className="w-[50%] h-[50%]" src={imageUrl} alt={alt} />
 				</span>
 			</a>
 		</li>

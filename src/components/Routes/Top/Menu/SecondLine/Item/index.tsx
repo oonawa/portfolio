@@ -10,8 +10,8 @@ export default function SecondLineItem({ image, title }: Props) {
 		<div className="relative aspect-square">
 			<a href="/experiences" className="relative w-full h-auto">
 				<img
-					className="w-full object-cover rounded-xl"
-					src={`${image.url}?w=480`}
+					className="w-full object-cover rounded-xl aspect-square"
+					src={`${image.url}?w=700`}
 					alt=""
 					fetchPriority="high"
 				/>

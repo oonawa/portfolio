@@ -5,13 +5,56 @@ import FeedYear from "../FeedYear";
 import FeedMonth from "../FeedMonth";
 import { getAboutContent, getTopMenuImages } from "../../../../lib/cms-client";
 import { getRssTimeline, groupItems } from "../../../../lib/rss-reader";
+import type { GroupedPerYear } from "../../../../lib/rss-reader";
+import type { SocialIcon } from "../../../../lib/cms-client";
+import { redis } from "../../../../lib/kv-client";
 
-const about = await getAboutContent();
-const feedItemList = await getRssTimeline(about.rss);
-const { socials } = await getTopMenuImages();
+const CACHE_KEY = "rss:timeline";
+const CACHE_TTL = 60 * 60 * 3; // 3時間（ミリ秒）
 
-// 年月単位でネストされたデータ構造に変換
-const rss = groupItems(feedItemList);
+type CachedData = {
+	data: GroupedPerYear[];
+	socials: SocialIcon[];
+	cachedAt: number;
+};
+
+const startTime = performance.now();
+
+// キャッシュから取得（必ず存在する前提）
+const cached = await redis.get<CachedData>(CACHE_KEY);
+
+if (!cached) {
+	throw new Error("キャッシュが存在しません");
+}
+
+const { data: rss, socials, cachedAt } = cached;
+const age = Date.now() - cachedAt;
+
+console.log(`[キャッシュ使用] ${(age / 1000).toFixed(0)}秒前のデータ`);
+console.log(`[合計処理時間] ${(performance.now() - startTime).toFixed(2)}ms`);
+
+// 3時間以上経過していたらバックグラウンドで更新（awaitしない）
+if (age > CACHE_TTL * 1000) {
+	console.log("[バックグラウンド更新開始]");
+
+	Promise.all([getAboutContent(), getTopMenuImages()])
+		.then(([about, { socials: newSocials }]) =>
+			getRssTimeline(about.rss).then((feedItemList) => ({
+				feedItemList,
+				socials: newSocials,
+			})),
+		)
+		.then(({ feedItemList, socials: newSocials }) => {
+			const newRss = groupItems(feedItemList);
+			return redis.set(CACHE_KEY, {
+				data: newRss,
+				socials: newSocials,
+				cachedAt: Date.now(),
+			});
+		})
+		.then(() => console.log("[バックグラウンド更新完了]"))
+		.catch((err) => console.error("[バックグラウンド更新エラー]", err));
+}
 ---
 
 <div class="secondIn opacity-0">

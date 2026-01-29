@@ -5,6 +5,9 @@ import Meta from "../components/Layouts/Meta";
 import Header from "../components/Layouts/Header";
 import Footer from "../components/Layouts/Footer";
 import ExperienceContainer from "../components/Routes/Experiences/Container/index.astro";
+import { getAboutContent, getTopMenuImages } from "../lib/cms-client";
+import { getRssTimeline, groupItems } from "../lib/rss-reader";
+import { redis } from "../lib/kv-client";
 import type { SiteOg } from "../components/Layouts/Meta";
 
 const og: SiteOg = {
@@ -12,13 +15,31 @@ const og: SiteOg = {
 	type: "article",
 	url: "experiences",
 };
+
+const CACHE_KEY = "rss:timeline";
+
+const [about, { socials }] = await Promise.all([
+	getAboutContent(),
+	getTopMenuImages(),
+]);
+
+const feedItemList = await getRssTimeline(about.rss);
+const rss = groupItems(feedItemList);
+
+await redis.set(CACHE_KEY, {
+	data: rss,
+	socials,
+	cachedAt: Date.now(),
+});
+
+console.log(`[ビルド時キャッシュ作成] ${new Date().toISOString()}`);
 ---
 
 <Meta title={"Experiences"} og={og}>
 	<Header title="Experiences" />
 	<main class="secondIn">
 		<ExperienceContainer server:defer>
-			<div slot="fallback" class="min-h-[100dvh]" />
+			<div slot="fallback" class="min-h-[100dvh]"></div>
 		</ExperienceContainer>
 		<Footer />
 	</main>

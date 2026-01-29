@@ -10,11 +10,11 @@ export default function ListItem({ blog }: Props) {
 	return (
 		<div className="flex flex-col justify-center items-center relative px-20">
 			<span className="flex justify-center items-center max-w-[180px] sm:max-w-[280px]">
-				<a href={`/blogs/${blog.id}`}>
+				<a href={`/blogs/${blog.id}`} className="aspect-square">
 					<img
 						src={`${blog.eyecatch.url}`}
 						src-set={`${blog.eyecatch.url}?w=180 180w, ${blog.eyecatch.url}?w=280 280w`}
-						className="max-w-full h-auto min-h-[180px] md:min-h-[240px] aspect-square"
+						className="w-full h-full aspect-square object-cover"
 						alt=""
 						width={blog.eyecatch.width}
 						height={blog.eyecatch.height}

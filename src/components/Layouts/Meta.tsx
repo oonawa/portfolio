@@ -47,8 +47,8 @@ export default function Meta({ title, og, children }: Props) {
 					property="og:url"
 					content={
 						og.url
-							? `https://${CONSTS.SITE_DOMAIN}/${og.url}`
-							: CONSTS.SITE_DOMAIN
+							? `https://${CONSTS.PRD_SITE_DOMAIN}/${og.url}`
+							: CONSTS.PRD_SITE_DOMAIN
 					}
 				/>
 				<meta property="og:type" content={og.type} />
@@ -57,7 +57,10 @@ export default function Meta({ title, og, children }: Props) {
 					property="og:title"
 					content={title ? `${title} | ${CONSTS.SITE_NAME}` : CONSTS.SITE_NAME}
 				/>
-				<meta property="og:image" content={og.image ? og.image : "/og.png"} />
+				<meta
+					property="og:image"
+					content={og.image ? og.image : `${CONSTS.PRD_SITE_DOMAIN}/og.png`}
+				/>
 				<meta property="og:site_name" content={CONSTS.SITE_NAME} />
 				<meta name="twitter:card" content="summary" />
 				<meta
@@ -65,7 +68,10 @@ export default function Meta({ title, og, children }: Props) {
 					content={title ? `${title} | ${CONSTS.SITE_NAME}` : CONSTS.SITE_NAME}
 				/>
 				<meta name="twitter:description" content={og.description} />
-				<meta name="twitter:image" content="/og.png" />
+				<meta
+					name="twitter:image"
+					content={`${CONSTS.PRD_SITE_DOMAIN}/og.png`}
+				/>
 				<title>
 					{title ? `${title} | ${CONSTS.SITE_NAME}` : CONSTS.SITE_NAME}
 				</title>

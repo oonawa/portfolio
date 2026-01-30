@@ -10,7 +10,7 @@ import { CONSTS } from "./consts";
 export default defineConfig({
 	integrations: [tailwind(), react(), sitemap()],
 
-	site: CONSTS.SITE_DOMAIN,
+	site: CONSTS.PRD_SITE_DOMAIN,
 
 	adapter: vercel(),
 

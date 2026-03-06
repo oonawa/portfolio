@@ -99,6 +99,7 @@ export const getAboutContent = async () => {
 export type SocialIcon = {
 	url: string;
 	name: string;
+	domain: string;
 	logo: MicroCMSImage;
 };
 export type TopMenuImages = {

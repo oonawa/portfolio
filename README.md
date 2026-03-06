@@ -8,9 +8,46 @@
   </strong>
 </p>
 
-## Notes
-- Astro・React・TailwindCSSをつかっています。
-- CMSにはmicroCMSを使用しています。
+oonawaが2023年〜2025年までに公開・更新していたポートフォリオサイトです。
+microCMS, Astro, Reactを使用した静的サイトをVercelへデプロイする構成になっています。
 
-デザインについての詳細はこちら
-https://oonawa-portfolio.vercel.app/blogs/xh3anjzwgy
+## ページ構成
+
+- トップ（サイト内メニュー / ソーシャルアカウントへのリンク）
+- About（簡単な自己紹介）
+- Blogs（残したいこと, お知らせなどのブログ一覧）
+- Experiences（Zenn / 本サイトのRSSフィード）
+
+## アプリケーション構成
+
+- Astro v5
+- React v18
+- TailwindCSS v3
+- TypeScript v5
+- Biome v1
+- Prettier v3
+
+## システム構成
+
+### CMS
+
+以下のコンテンツ管理にmicroCMSを使用しています。
+
+- ブログ記事
+- プロフィール（自己紹介文 / SNSアカウント一覧）
+- 取得するRSSフィードのURL一覧
+- トップのメニューに使用する画像
+
+### サーバー
+
+Vercelへホスティングしています。
+
+### データベース
+
+一部データのキャッシュにUpstashを使用しています。
+
+> 👉RSSフィードから抽出したタイトル・URLなど
+
+## ライセンス
+
+[MITライセンス](https://opensource.org/licenses/MIT)で公開しています。

@@ -30,7 +30,7 @@ const og: SiteOg = {
 				src={`${about.icon.url}?w=150`}
 				class="w-32 h-32 rounded-full mb-4"
 			/>
-			<section class="max-w-[580px] px-4">
+			<section class="w-full max-w-3xl px-4">
 				<h2 class="text-center tracking-wide mb-5 font-bold">
 					{about.name}
 				</h2>
@@ -42,22 +42,20 @@ const og: SiteOg = {
 						</p>
 					)
 				}
-				<div class="text-center">
+				<div class="text-center pb-10">
 					<Fragment set:html={parseHtml(about.summery)} />
 				</div>
 				{
 					about.contents.map((c) => (
-						<div class="py-4">
-							<h3 class="mt-12 mb-6 text-center">{c.title}</h3>
+						<div class="py-12">
+							<h3 class="mb-6 text-center text-lg font-bold">{c.title}</h3>
 							{c.images && (
-								<div class="grid grid-cols-3 md:grid-cols-4 gap-4 mb-4">
+								<div class="flex justify-center gap-6 mb-4">
 									{c.images.map((i, index) => (
-										<div
-											class={`aspect-square ${index === 3 ? "hidden md:block" : "block"}`}
-										>
+										<div class="aspect-square">
 											<img
 												alt=""
-												class={`w-full h-full object-cover rounded-lg ${index === 3 ? "hidden md:inline" : "inline"}`}
+												class="w-full h-full object-contain rounded-lg"
 												src={`${i.url}?w=200`}
 											/>
 										</div>
@@ -65,8 +63,10 @@ const og: SiteOg = {
 								</div>
 							)}
 							{c.content && (
-								<div class="px-4 md:px-8">
-									<Fragment set:html={parseHtml(c.content)} />
+								<div class="w-full flex justify-center px-4 md:px-20">
+									<div class="max-w-lg pt-4">
+										<Fragment set:html={parseHtml(c.content)} />
+									</div>
 								</div>
 							)}
 						</div>
